@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="prism__element prism__element_bottom">
-          <img class="login__image" src="../assets/logo.svg" alt="logo">
+          <img class="login__image" src="../../assets/login/login_logo.png" alt="logo">
           <h1 class="login__title">Вход</h1>
           <el-form @submit.native="login($event)" class="login__form form" :model="form">
             <el-form-item class="form__input-wrapper">
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import * as api from '../api'
+import * as api from '../../api'
 
 export default {
   data () {
@@ -97,114 +97,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.login {
-  background: left / cover url('../assets/login/login-bg.jpg');
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-  position: relative;
-  &__image {
-    width: 80px;
-    margin: 0 auto;
-    margin-bottom: 15px;
-  }
-  &__title {
-    font-size: 23px;
-    font-weight: 100;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  &__enter-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    &.disable {
-      z-index: -10;
-    }
-  }
-}
-
-.form {
-  text-align: center;
-  &__input-wrapper.el-form-item {
-    margin-bottom: 0;
-  }
-  &__input {
-    margin-bottom: 10px;
-  }
-  & .el-button {
-    margin-top: 10px;
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 18px;
-    padding: 12px 23px;
-  }
-  &__help-btn.el-button {
-    font-size: 14px;
-    padding: 14px 8px;
-    font-weight: 300;
-    color: #5398E0;
-  }
-}
-
-.prism-wrapper {
-  width: 350px;
-  height: 350px;
-  margin: 70px auto;
-}
-
-.prism {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transform: scale(.3) rotateX(-30deg);
-  transition: transform 1s ease-out;
-  &__title {
-    font-size: 23px;
-    color: #fff;
-    text-align: center;
-  }
-  &__element {
-    position: absolute;
-    width: 350px;
-    height: 350px;
-    padding: 20px;
-
-    &_front{
-      background: center / contain url('../assets/login/left.jpg');
-      transform: rotateY(-45deg) translateZ(175px);
-      border-radius: 5px;
-    }
-    &_top{
-      background: center / contain url('../assets/login/top.jpg');
-      height: 350px;
-      transform: rotateX(90deg) rotateZ(45deg) translateZ(175px);
-      border-radius: 5px;
-    }
-    &_back{
-      background-color: #0079E7;
-      transform: rotateY(135deg) translateZ(175px);
-      border-radius: 5px;
-    }
-    &_right{
-      background: center / contain url('../assets/login/right.jpg');
-      transform: rotateY(45deg) translateZ(175px);
-      border-radius: 5px;
-    }
-    &_left{
-      background-color: #0079E7;
-      transform: rotateY(-135deg) translateZ(175px);
-      border-radius: 5px;
-    }
-    &_bottom{
-      background-color: #eef;
-      height: 350px;
-      transform: rotateX(-90deg) rotateZ(-45deg) translateZ(175px);
-      border-radius: 5px;
-    }
-  }
-}
-</style>
+<style lang="scss" src="./login.scss"></style>

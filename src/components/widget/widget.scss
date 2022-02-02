@@ -1,0 +1,80 @@
+.widget {
+  background-color: #313742;
+  width: 280px;
+  height: 270px;
+  border-radius: 4px;
+  color: #CED0D6;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 4px 8px;
+    font-weight: 600;
+  }
+  &__view.el-radio-group {
+    display: flex;
+  }
+  &__btn.el-radio-button {
+    border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
+    overflow: hidden;
+    &:last-child {
+      border-right: none !important;
+    }
+    &.is-active .el-radio-button__inner {
+      background-color: rgba(83, 152, 224, 0.24) !important;
+      color: #5398E0;
+    }
+  }
+  &__btn .el-radio-button__inner {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 28px;
+    background-color: rgba(110, 116, 128, 0.16) !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.stat {
+  padding: 16px;
+  display: grid;
+  grid-gap: 16px 0;
+  grid-template-columns: 1fr 1fr;
+  &__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #79DB62;
+    background-color: rgba(121, 219, 98, 0.1);
+    color: #79DB62;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__item {
+    display: grid;
+    grid-template-columns: 40px 67px;
+    grid-template-rows: 20px 20px;
+    grid-template-areas:
+      "icon count"
+      "icon status";
+      grid-gap: 2px 8px;
+  }
+  &__icon {
+    grid-area: icon;
+  }
+  &__count {
+    color: #f2f3f5;
+    font-weight: 600;
+    grid-area: count;
+  }
+  &__status {
+    font-size: 12px;
+    grid-area: status;
+  }
+}

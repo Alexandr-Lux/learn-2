@@ -24,6 +24,14 @@
       z-index: -10;
     }
   }
+  &.loading {
+    @keyframes loading {
+      0% { background-position-x: left; }
+      50% { background-position-x: right; }
+      100% { background-position-x: left; }
+    }
+    animation: loading 10s ease-in-out infinite;
+  }
 }
 
 .form {
@@ -44,7 +52,7 @@
     padding: 14px 8px;
     font-weight: 300;
     font-size: 14px;
-    color: #5398E0;
+    color: var(--accent_primary);
   }
 }
 

@@ -1,0 +1,158 @@
+:root {
+  --font-family: SegoeUI,Segoe UI,sans-serif;
+  --accent_info: #3f3f3f;
+  --text_secondary: #9398a3;
+  --field_bg: rgba(110,116,128,0.16);
+  --white_white: #fff;
+  --white_bg: hsla(0,0%,100%,0.1);
+  --white_overlay: hsla(0,0%,100%,0.6);
+  --black: #000;
+  --black_overlay: rgba(0,0,0,0.1);
+  --black_bg: rgba(0,0,0,0.5);
+  --border-radius: 4px;
+  --export-json: #af59ba;
+  --export-geojson: #f44949;
+  --export-csv: #ff7f0b;
+  --export-shp: #00b65c;
+  --export-net: #ff399b;
+  --one-to-many: #f06529;
+  --one-to-one: #ff4c8d;
+  --function: #633cc6;
+  --string: #915eff;
+  --number: #2e93fe;
+  --numeric: #2e93fe;
+  --boolean: #e56566;
+  --date: #55b77e;
+  --time: #f8c348;
+}
+
+.light-theme {
+  --accent_primary: #2e93fe;
+  --accent_success: #40a228;
+  --accent_success_hover: rgba(64,162,40,0.12);
+  --accent_success_bg: rgba(64,162,40,0.4);
+  --accent_warning: #d69338;
+  --accent_warning_hover: rgba(214,147,56,0.12);
+  --accent_warning_bg: rgba(214,147,56,0.4);
+  --accent_error: #d94141;
+  --accent_error_hover: rgba(217,65,65,0.12);
+  --accent_error_light: rgba(217,65,65,0.3);
+  --accent_transparent: rgba(46,147,254,0);
+  --accent_hover: rgba(46,147,254,0.12);
+  --accent_selected: rgba(46,147,254,0.12);
+  --accent_active: rgba(46,147,254,0.5);
+  --accent_selected_noopacity: #c6e0ff;
+  --bg_surface: #f7f8fa;
+  --bg_panel_primary: #f2f3f5;
+  --bg_panel_secondary: #ebedf0;
+  --bg_containers: rgba(110,116,128,0.08);
+  --modal_bg: #f7f8fa;
+  --modal_overlay: rgba(0,0,0,0.24);
+  --dividers_low_contrast: rgba(0,0,0,0.12);
+  --dividers_high_contrast: rgba(0,0,0,0.24);
+  --button_primary_bg: #2e93fe;
+  --button_secondary_bg: rgba(110,116,128,0.24);
+  --button_secondary_bg_hover: rgba(110,116,128,0.3);
+  --text_primary: #090e14;
+  --text_subhead: #404652;
+  --text_tertiary: #ced0d6;
+  --field_border: rgba(0,0,0,0.12);
+  --field_placeholder: #909499;
+  --field_droplist_bg: #f7f8fa;
+  --field_primary_text: #090e14;
+  --field_hover_bg: rgba(110,116,128,0.16);
+  --field_error_bg: rgba(217,65,65,0.1);
+  --field_error_border: #d94141;
+  --field_active_border: #2e93fe;
+  --icons_low_contrast: #b4b8bf;
+  --icons_high_contrast: #6e7480;
+  --table_header_bg: rgba(110,116,128,0.08);
+  --table_cell_bg: #f7f8fa;
+  --table_border: #e1e3e6;
+}
+
+.dark-theme {
+  --accent_primary: #5398e0;
+  --accent_success: #5d9e4e;
+  --accent_success_hover: rgba(93,158,78,0.12);
+  --accent_success_bg: rgba(93,158,78,0.4);
+  --accent_warning: #cc8f3d;
+  --accent_warning_hover: rgba(204,143,61,0.12);
+  --accent_warning_bg: rgba(204,143,61,0.4);
+  --accent_error: #c55151;
+  --accent_error_hover: rgba(197,81,81,0.12);
+  --accent_error_light: rgba(197,81,81,0.3);
+  --accent_transparent: rgba(83,152,224,0);
+  --accent_hover: rgba(83,152,224,0.24);
+  --accent_selected: rgba(83,152,224,0.24);
+  --accent_active: rgba(83,152,224,0.5);
+  --accent_selected_noopacity: #23364e;
+  --bg_surface: #090e14;
+  --bg_panel_primary: #14181f;
+  --bg_panel_secondary: #1b2029;
+  --bg_containers: rgba(110,116,128,0.16);
+  --modal_bg: #313742;
+  --modal_overlay: rgba(0,0,0,0.4);
+  --dividers_low_contrast: hsla(0,0%,100%,0.12);
+  --dividers_high_contrast: hsla(0,0%,100%,0.24);
+  --button_primary_bg: #5398e0;
+  --button_secondary_bg: rgba(110,116,128,0.4);
+  --button_secondary_bg_hover: rgba(110,116,128,0.5);
+  --text_primary: #f2f3f5;
+  --text_subhead: #ced0d6;
+  --text_tertiary: #545a66;
+  --field_border: hsla(0,0%,100%,0.12);
+  --field_placeholder: #9398a3;
+  --field_droplist_bg: #404652;
+  --field_primary_text: #f2f3f5;
+  --field_hover_bg: rgba(110,116,128,0.3);
+  --field_error_bg: rgba(197,81,81,0.2);
+  --field_error_border: #c55151;
+  --field_active_border: #5398e0;
+  --icons_low_contrast: #6e7480;
+  --icons_high_contrast: #b4b8bf;
+  --table_header_bg: rgba(110,116,128,0.24);
+  --table_cell_bg: rgba(110,116,128,0.08);
+  --table_border: #404652;
+}
+
+.root {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.42;
+  color: var(--text_primary);
+  font-family: var(--font-family);
+}
+
+.title-1 {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.title-2 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.title-3 {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.subtitle-1 {
+  font-weight: 600;
+}
+
+.subtitle-2 {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+}
+
+.caption {
+  font-size: 12px;
+  line-height: 16px;
+}

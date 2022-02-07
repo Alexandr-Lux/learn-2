@@ -1,9 +1,9 @@
 .widget {
-  background-color: #313742;
+  background-color: var(--modal_bg);
+  border-radius: var(--border-radius);
+  color: var(--text_subhead);
   width: 280px;
   height: 270px;
-  border-radius: 4px;
-  color: #CED0D6;
   &__header {
     display: flex;
     align-items: center;
@@ -16,27 +16,27 @@
     display: flex;
   }
   &__btn.el-radio-button {
-    border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-right: 1px solid var(--dividers_low_contrast) !important;
     overflow: hidden;
     &:last-child {
       border-right: none !important;
     }
     &.is-active .el-radio-button__inner {
-      background-color: rgba(83, 152, 224, 0.24) !important;
-      color: #5398E0;
+      background-color: var(--accent_selected) !important;
+      color: var(--accent_primary);
     }
   }
   &__btn .el-radio-button__inner {
+    background-color: var(--bg_containers) !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 36px;
     height: 28px;
-    background-color: rgba(110, 116, 128, 0.16) !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
   }
 }
 
@@ -49,12 +49,22 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid #79DB62;
-    background-color: rgba(121, 219, 98, 0.1);
-    color: #79DB62;
+    border: 1px solid transparent;
     display: flex;
     align-items: center;
     justify-content: center;
+    grid-area: icon;
+    &.red {
+      color: #E35D5D;
+      border-color: #E35D5D;
+      background-color: rgba(227, 93, 93, 0.1);
+
+    }
+    &.green {
+      color: #79DB62;
+      border-color: #79DB62;
+      background-color: rgba(121, 219, 98, 0.1);
+    }
   }
   &__item {
     display: grid;
@@ -63,18 +73,13 @@
     grid-template-areas:
       "icon count"
       "icon status";
-      grid-gap: 2px 8px;
-  }
-  &__icon {
-    grid-area: icon;
+    grid-gap: 0px 8px;
+    align-items: end;
   }
   &__count {
-    color: #f2f3f5;
-    font-weight: 600;
     grid-area: count;
   }
   &__status {
-    font-size: 12px;
     grid-area: status;
   }
 }

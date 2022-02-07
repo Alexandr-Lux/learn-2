@@ -1,8 +1,5 @@
 <template>
-  <div class="login">
-    <el-dialog :visible="errorMessage !== null" :before-close="closeDialog" title="Ошибка" width="30%">
-      <span>{{errorMessage}}</span>
-    </el-dialog>
+  <div :class="['login', { loading }]">
     <div class="login__logo prism-wrapper">
       <div class="prism" ref="prism">
         <div class="prism__element prism__element_top"></div>
@@ -53,7 +50,6 @@ export default {
         name: '',
         password: ''
       },
-      errorMessage: null,
       activeSide: '',
       btnIsActive: true
     }
@@ -77,6 +73,7 @@ export default {
     },
     async login (e) {
       e.preventDefault()
+      this.$refs.prism.style.transform = 'scale(.3) rotateX(-30deg)'
 
       if (this.form.name && this.form.password) {
         try {

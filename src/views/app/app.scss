@@ -6,6 +6,22 @@
     position: relative;
     flex: 1;
   }
+  &__mapcenter {
+    border-radius: var(--border-radius);
+    background-color: var(--modal_bg);
+    color: var(--text_subhead);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 15;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    &:hover {
+      background-color: var(--accent_hover);
+    }
+  }
   &__map {
     height: 100%;
   }
@@ -31,36 +47,37 @@
   }
 }
 .navbar {
-  background-color: #14181F;
+  background-color: var(--bg_panel_primary);
   width: 100%;
   height: 48px;
   display: grid;
   grid-template-columns: 24px 213px 1fr 50px repeat(3, 68px) 70px;
   justify-items: center;
   align-items: center;
-  align-content: center;
+  // align-content: center;
   padding: 0 16px;
   &__popover {
     height: 100%;
     justify-self: left;
+    display: block;
   }
   &__link {
+    color: var(--icons_high_contrast);
     height: 100%;
-    color: #B4B8BF;
     display: flex;
     align-items: center;
     &.notif {
       padding: 0 16px;
       height: 75%;
-      border-right: 1px solid rgba(255, 255, 255, 0.12);
-      border-left: 1px solid rgba(255, 255, 255, 0.12);
+      border-right: 1px solid var(--dividers_low_contrast);
+      border-left: 1px solid var(--dividers_low_contrast);
     }
   }
 }
 
 .profile {
   &__avatar {
-    color: #B4B8BF;
+    color: var(--icons_high_contrast);
   }
   &__btn {
     display: flex;
@@ -69,36 +86,38 @@
     height: 100%;
     padding: 0 16px;
     &:hover {
-      background-color: rgba(100, 100, 100, .5);
+      background-color: var(--button_secondary_bg_hover);
     }
   }
   &__title {
-    color: #9398A3;
-    font-size: 12px;
+    color: var(--text_secondary);
+    margin-bottom: 4px;
   }
   &__content {
     text-align: left;
-    color: #f2f3f5;
-    padding: 0 16px;
+    padding: 3px 16px;
   }
   &__btn .el-icon-caret-bottom {
-    color: #B4B8BF;
+    color: var(--icons_high_contrast);
+  }
+  &__name {
+    color: var(--text_primary) !important;
   }
 }
 
 .objects {
   &__dropdown {
+    background-color: var(--accent_selected);
+    color: var(--accent_primary);
+    border-radius: var(--border-radius);
     width: 208px;
-    border-radius: 4px;
-    background-color: rgba(83, 152, 224, 0.24);
-    color: #5398E0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 9px;
     font-weight: 600;
     & .el-icon-caret-bottom {
-      color: #5398E0;
+      color: var(--accent_primary);
     }
   }
 }

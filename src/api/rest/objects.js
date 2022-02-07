@@ -11,3 +11,9 @@ export const fetchObjects = () => {
     url: '/api/objects'
   })
 }
+
+export const fetchObjInfo = (id) => {
+  return makeRequest({
+    url: `/api/objects/${id}`
+  })
+}

@@ -8,7 +8,7 @@
         placement="bottom"
         trigger="click">
         <button class="profile__content" slot="reference">
-          <h3 class="profile__title">Текущий профиль</h3>
+          <h3 class="profile__title caption">Текущий профиль</h3>
           <span class="profile__name">Profile Name</span>
           <i class="el-icon-arrow-down"></i>
         </button>
@@ -18,7 +18,7 @@
         placement="bottom"
         trigger="click">
         <button class="objects__dropdown" slot="reference">
-          <Icon name="trafficLight" style="color: #5398E0" />
+          <Icon name="trafficLight" />
           <span>Светофорные объекты</span>
           <i class="el-icon-caret-bottom"></i>
         </button>
@@ -45,36 +45,48 @@
           </div>
           <i class="el-icon-caret-bottom"></i>
         </button>
-        <Dropdown />
+        <Dropdown type="exit" />
       </el-popover>
     </nav>
     <div class="app__map-wrapper">
+      <button class="app__mapcenter" @click="flyToMapCenter">
+        <i class="el-icon-full-screen"></i>
+      </button>
       <div id="mapContainer" class="app__map"></div>
       <div class="app__objects-list">
-        <Objects-list />
+        <Objects-list :loading="loading" />
       </div>
-     <div class="app__widget-wrapper">
+     <div class="app__widget-wrapper" v-if="widgetInfo">
         <div class="app__widget">
-          <Widget />
+          <Widget :source="{
+            ...widgetInfo.objects,
+            type: 'trafficLight',
+            name: 'Светофоры'
+          }" />
         </div>
         <div class="app__widget">
-          <Widget />
+          <Widget :source="{
+            ...widgetInfo.detectors,
+            type: 'detector',
+            name: 'Детекторы'
+          }" />
         </div>
      </div>
-     <Card class="app__card" v-if="actionCardId"/>
+     <Card class="app__card" v-if="activeCardId"/>
     </div>
   </div>
 </template>
 
 <script>
 import mapboxgl from 'mapbox-gl'
-import maps from '../../configs/maps'
+import * as configs from '../../configs'
 import jsonToGeojson from '../../helpers/jsonToGeojson'
+import createImageFromSvg from '../../helpers/createImageFromSvg'
 import Card from '../../components/card/Card.vue'
 import Widget from '../../components/widget/Widget.vue'
 import Dropdown from '../../components/dropdown/Dropdown.vue'
 import ObjectsList from '../../components/objects-list/Objects-list.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
   components: {
@@ -87,18 +99,27 @@ export default {
     return {
       mapgl: null,
       accessToken: 'pk.eyJ1IjoiYWxla3NhbmRybHVrcyIsImEiOiJja3l3dnI4NHIwYzlrMm9zN2htZnF1b3NiIn0.9n7DQxDRx7rZKdh_KlMX2w',
-      user: null,
-      summary: null,
-      objects: null,
-      actionCardId: null
+      sourcesOnMap: [],
+      layersOnMap: [],
+      loading: false
     }
   },
+  computed: {
+    ...mapState({
+      trafficLights: state => state.trafficLights.data,
+      geotrafficLights: state => state.trafficLights.geojson,
+      widgetInfo: state => state.summary,
+      activeCardId: state => state.activeCardId
+    })
+  },
   methods: {
-    ...mapActions(['getObjects']),
+    ...mapActions(['getObjects', 'getSummary']),
+    ...mapMutations(['SET_ACTIVECARD_ID', 'SET_GEOJSON']),
+
     async addLayerToMap (layerConfig, sourceConfig) {
-      if (sourceConfig && sourceConfig.url) {
-        await this.fetchDataset({ url: sourceConfig.url, id: sourceConfig.id })
-        this.SET_GEOJSON({ data: jsonToGeojson(this[sourceConfig.id], sourceConfig.type, sourceConfig.id), id: sourceConfig.id })
+      if (sourceConfig) {
+        await this[sourceConfig.fetchFn]()
+        this.SET_GEOJSON({ data: jsonToGeojson(this[sourceConfig.id], sourceConfig.type), id: sourceConfig.id })
       }
 
       if (sourceConfig) {
@@ -120,7 +141,7 @@ export default {
       this.mapgl.addLayer(layerConfig)
 
       this.mapgl.on('click', layerConfig.id, (e) => {
-        this.SET_ACTIVEMODAL({ id: e.features[0].properties.id, type: sourceConfig.id })
+        this.SET_ACTIVECARD_ID(e.features[0].properties.id)
       })
 
       this.mapgl.on('mouseenter', layerConfig.id, () => {
@@ -130,49 +151,38 @@ export default {
       this.mapgl.on('mouseleave', layerConfig.id, () => {
         this.mapgl.getCanvas().style.cursor = ''
       })
+    },
+    flyToMapCenter () {
+      this.mapgl.flyTo({
+        center: configs.maps.baseMap.center,
+        zoom: configs.maps.baseMap.zoom,
+        speed: 2.5
+      })
+    }
+  },
+  watch: {
+    activeCardId (id) {
+      if (id) {
+        const curCard = this.trafficLights.find(tl => tl.id === id)
+        this.mapgl.flyTo({
+          center: curCard.geom.coordinates.map(coord => coord - 0.0005),
+          zoom: 17,
+          speed: 2.5
+        })
+      }
     }
   },
   mounted () {
+    this.loading = true
+    console.log(true)
     mapboxgl.accessToken = this.accessToken
-    this.mapgl = new mapboxgl.Map(maps.baseMap)
+    this.mapgl = new mapboxgl.Map(configs.maps.baseMap)
     this.mapgl.on('load', async () => {
-      await this.mapgl.getStyle().layers.filter(lyr => lyr.type === 'symbol')
-        .forEach(sl => {
-          if (sl.layout['text-field'][0] === 'coalesce') {
-            this.mapgl.setLayoutProperty(sl.id, 'text-field', ['coalesce', ['get', 'name_ru'], ['get', 'name']])
-          }
-        })
-      await this.getObjects()
-      // this.user = await api.user.getUser().then(res => res.data)
-      // this.summary = await api.objects.getSummaryInfo().then(res => res.data)
-      // this.objects = await api.objects.getObjects().then(res => res.data)
-
-      // this.mapgl.loadImage(
-      //   '../assets/tl.svg',
-      //   (error, image) => {
-      //     if (error) throw error
-      //     this.mapgl.addImage('tl', image)
-      //     this.mapgl.addSource('tl', {
-      //       type: 'symbol',
-      //       data: {
-      //         type: 'Feature',
-      //         geometry: {
-      //           type: 'Point',
-      //           coordinates: [39.7405, 54.625]
-      //         },
-      //         properties: {}
-      //       }
-      //     })
-      //     this.mapgl.addLayer({
-      //       id: 'tl',
-      //       source: 'tl',
-      //       type: 'symbol',
-      //       layout: {
-      //         'icon-image': 'tl'
-      //       }
-      //     })
-      //   }
-      // )
+      await createImageFromSvg(this)
+      await this.addLayerToMap(configs.layers.lights, configs.sources.tl)
+      this.loading = false
+      await this.getSummary()
+      this.mapgl.setPaintProperty('tl', 'icon-color', ['match', ['get', 'state'], 2, '#cc8f3d', 3, '#79DB62', 254, '#E35D5D', '#ccc'])
     })
   }
 }

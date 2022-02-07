@@ -5,6 +5,7 @@ import store from './store'
 import Icon from './components/icons/Icon.vue'
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/ru-RU'
+import './helpers/reset.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false

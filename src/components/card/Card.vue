@@ -1,35 +1,48 @@
 <template>
-  <div class="card">
-    <button class="card__close">
-        <i class="el-icon-close"></i>
-      </button>
+  <div class="card" v-if="cardContent">
+    <button class="card__close" @click="SET_ACTIVECARD_ID(null)">
+      <i class="el-icon-close"></i>
+    </button>
     <div class="card__wrapper">
       <div class="card__infobar infobar">
         <div class="infobar__header">
           <Icon name="trafficLight" style="color: #B4B8BF" />
-          <h4 class="infobar__title">СО №1263</h4>
+          <h4 class="infobar__title">СО {{cardContent.id - 4096}}</h4>
           <div class="infobar__target-icon">
             <i class="el-icon-aim"></i>
           </div>
         </div>
         <div class="infobar__content">
-          <div class="infobar__prop">Перекресток</div>
-          <div class="infobar__value">ул. Ленина – ул. Введенская</div>
-          <div class="infobar__prop">Режим управления</div>
-          <div class="infobar__value">План координации / суточный график</div>
-          <div class="infobar__prop">Состояние</div>
-          <div class="infobar__value">Фаза</div>
-          <div class="infobar__prop">Источник</div>
-          <div class="infobar__value">Сетевой адаптер / центр</div>
-          <div class="infobar__prop">Команда управления</div>
-          <div class="infobar__value">н/д</div>
-          <div class="infobar__prop">Тип ДК</div>
-          <div class="infobar__value">Протокол «Мегаполис» | TCP/IP</div>
+          <div class="infobar__prop caption">Перекресток</div>
+          <div class="infobar__value">{{
+            `${cardContent.street1} - ${cardContent.street2}`
+            }}</div>
+          <div class="infobar__prop caption">Режим управления</div>
+          <div class="infobar__value">
+            {{cardContent.info.mode ? cardContent.info.mode : 'н/д'}}
+          </div>
+          <div class="infobar__prop caption">Состояние</div>
+          <div class="infobar__value" :style="{ color: cardContent.info.color }">
+            {{cardContent.info.state ? cardContent.info.state : 'н/д'}}
+          </div>
+          <div class="infobar__prop caption">Источник</div>
+          <div class="infobar__value">
+            {{cardContent.info.source ? cardContent.info.source : 'н/д'}}
+          </div>
+          <div class="infobar__prop caption">Команда управления</div>
+          <div class="infobar__value">
+            {{cardContent.info.control ? cardContent.info.control : 'н/д'}}
+          </div>
+          <div class="infobar__prop caption">Тип ДК</div>
+          <div class="infobar__value">
+            {{cardContent.info.DKType ? cardContent.info.DKType : 'Протокол «Мегаполис» | TCP/IP'}}
+          </div>
         </div>
       </div>
       <div class="card__body">
         <el-tabs class="card__tabs" type="border-card">
           <el-tab-pane label="Журнал" class="card__tab-item">
+<!-- Убрать style -->
             <div class="journal">
               <div class="journal__settings">
                 <div class="journal__subtitle">Показать за период:</div>
@@ -40,14 +53,14 @@
                   <el-radio-button label="set" class="journal__time-item">Заданный период</el-radio-button>
                 </el-radio-group>
                 <div class="journal__period" v-if="period === 'set'">
-                  <div class="journal__prop">Начало</div>
+                  <div class="journal__prop caption">Начало</div>
                   <el-date-picker
                     class="journal__datepicker"
                     v-model="beginPeriod"
                     type="datetime"
                     prefix-icon="el-icon-date">
                   </el-date-picker>
-                  <div class="journal__prop">Окончание</div>
+                  <div class="journal__prop caption">Окончание</div>
                   <el-date-picker
                     class="journal__datepicker"
                     v-model="endPeriod"
@@ -57,7 +70,7 @@
                 </div>
               </div>
               <div class="journal__controls">
-                <div class="journal__download">
+                <div class="journal__download subtitle-1">
                   <i class="el-icon-download"></i>
                   <span class="journal__download-text">Выгрузить журнал в файл</span>
                 </div>
@@ -98,7 +111,9 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="Документы и комментарии" class="card__docs docs">
+<!-- Убрать style -->
             <el-upload
+              style="display: none"
               class="docs__upload"
               drag
               multiple
@@ -109,7 +124,6 @@
               <i class="el-icon-upload2"></i>
               <span class="el-upload__text">Перетяните файл в это поле или <em>выберите вручную</em></span>
               <div slot="file" slot-scope="{file}" class="docs__content" :src="file.url">
-                <!-- <div ></div> -->
               </div>
             </el-upload>
           </el-tab-pane>
@@ -120,21 +134,52 @@
 </template>
 
 <script>
+import * as api from '../../api'
+import * as configs from '../../configs'
+import { mapMutations, mapState } from 'vuex'
 export default {
   data () {
     return {
       period: '',
       toggleObj: 'tl',
-      fileList: []
+      fileList: [],
+      cardContent: null
     }
   },
+  computed: {
+    ...mapState({
+      trafficLights: state => state.trafficLights.data,
+      activeCardId: state => state.activeCardId
+    })
+  },
   methods: {
+    ...mapMutations(['SET_ACTIVECARD_ID']),
     handlePreview () {
-      console.log(this.fileList)
     },
     handleRemove () {
-      console.log(2)
+    },
+    async fillCardContent () {
+      const res = await api.objects.fetchObjInfo(this.activeCardId)
+      const data = res.data.object[0]
+      this.cardContent = {
+        ...data,
+        info: {
+          color: configs.cardConfig.color[data.state],
+          mode: configs.cardConfig.mode[data.mode],
+          state: configs.cardConfig.state[data.state],
+          source: configs.cardConfig.source[data.source]
+        }
+      }
     }
+  },
+  watch: {
+    async activeCardId () {
+      await this.fillCardContent()
+    }
+  },
+  async mounted () {
+    await this.fillCardContent()
+    console.log(this.cardContent)
   }
 }
 </script>

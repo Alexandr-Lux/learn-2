@@ -1,4 +1,4 @@
-export default function (json, type) {
+export default function (json) {
   return {
     type: 'FeatureCollection',
     features: json.map(obj => {

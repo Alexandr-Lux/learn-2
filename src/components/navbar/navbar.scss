@@ -1,0 +1,77 @@
+.navbar {
+  background-color: var(--bg_panel_primary);
+  width: 100%;
+  height: 48px;
+  display: flex;
+  display: grid;
+  grid-template-columns: 24px 213px 1fr 68px repeat(3, 68px) 70px;
+  justify-items: center;
+  align-items: center;
+  padding: 0 16px;
+  &__popover {
+    height: 100%;
+    justify-self: left;
+    display: block;
+  }
+  &__link {
+    color: var(--icons_high_contrast);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    height: 75%;
+    &.with-divider {
+      padding: 0 22px;
+      border-right: 1px solid var(--dividers_low_contrast);
+      border-left: 1px solid var(--dividers_low_contrast);
+    }
+  }
+}
+
+.profile {
+  &__avatar {
+    color: var(--icons_high_contrast);
+  }
+  &__btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 16px;
+    &:hover {
+      background-color: var(--button_secondary_bg_hover);
+    }
+  }
+  &__title {
+    color: var(--text_secondary);
+    margin-bottom: 4px;
+  }
+  &__content {
+    text-align: left;
+    padding: 3px 16px;
+  }
+  &__name {
+    color: var(--text_primary);
+    margin-right: 5px;
+  }
+  & .el-icon-arrow-down,
+  & .el-icon-caret-bottom {
+    color: var(--icons_high_contrast);
+  }
+}
+
+.objects {
+  &__dropdown {
+    background-color: var(--accent_selected);
+    color: var(--accent_primary);
+    border-radius: var(--border-radius);
+    width: 208px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px;
+    font-weight: 600;
+  }
+  & .el-icon-caret-bottom {
+    color: var(--accent_primary);
+  }
+}

@@ -12,30 +12,16 @@
             <i class="el-icon-aim"></i>
           </div>
         </div>
-        <div class="infobar__content">
-          <div class="infobar__prop caption">Перекресток</div>
-          <div class="infobar__value">{{
-            `${cardContent.street1} - ${cardContent.street2}`
-            }}</div>
-          <div class="infobar__prop caption">Режим управления</div>
-          <div class="infobar__value">
-            {{cardContent.info.mode ? cardContent.info.mode : 'н/д'}}
-          </div>
-          <div class="infobar__prop caption">Состояние</div>
-          <div class="infobar__value" :style="{ color: cardContent.info.color }">
-            {{cardContent.info.state ? cardContent.info.state : 'н/д'}}
-          </div>
-          <div class="infobar__prop caption">Источник</div>
-          <div class="infobar__value">
-            {{cardContent.info.source ? cardContent.info.source : 'н/д'}}
-          </div>
-          <div class="infobar__prop caption">Команда управления</div>
-          <div class="infobar__value">
-            {{cardContent.info.control ? cardContent.info.control : 'н/д'}}
-          </div>
-          <div class="infobar__prop caption">Тип ДК</div>
-          <div class="infobar__value">
-            {{cardContent.info.DKType ? cardContent.info.DKType : 'Протокол «Мегаполис» | TCP/IP'}}
+        <div class="infobar__content" style="dispaly:none">
+          <div class="infobar__field" v-for="(value, name, i) in properties" :key="i">
+            <div class="infobar__prop caption">{{value}}</div>
+            <div class="infobar__value" :style="{ color: name === 'state' ? cardContent.info.color : 'inherit'}">
+              {{
+                value === 'Перекресток' ?
+                `${cardContent.street1} - ${cardContent.street2}` :
+                cardContent.info[name] ? cardContent.info[name] : 'н/д'
+              }}
+            </div>
           </div>
         </div>
       </div>
@@ -134,16 +120,18 @@
 </template>
 
 <script>
-import * as api from '../../api'
-import * as configs from '../../configs'
+import * as api from '@/api'
+import * as configs from '@/configs'
 import { mapMutations, mapState } from 'vuex'
+
 export default {
   data () {
     return {
       period: '',
       toggleObj: 'tl',
       fileList: [],
-      cardContent: null
+      cardContent: null,
+      properties: configs.cardConfig.props
     }
   },
   computed: {
@@ -154,10 +142,8 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_ACTIVECARD_ID']),
-    handlePreview () {
-    },
-    handleRemove () {
-    },
+    handlePreview () {},
+    handleRemove () {},
     async fillCardContent () {
       const res = await api.objects.fetchObjInfo(this.activeCardId)
       const data = res.data.object[0]
@@ -167,7 +153,8 @@ export default {
           color: configs.cardConfig.color[data.state],
           mode: configs.cardConfig.mode[data.mode],
           state: configs.cardConfig.state[data.state],
-          source: configs.cardConfig.source[data.source]
+          source: configs.cardConfig.source[data.source],
+          DKType: 'Протокол «Мегаполис» | TCP/IP'
         }
       }
     }
@@ -179,7 +166,6 @@ export default {
   },
   async mounted () {
     await this.fillCardContent()
-    console.log(this.cardContent)
   }
 }
 </script>

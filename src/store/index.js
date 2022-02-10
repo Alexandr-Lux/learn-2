@@ -23,7 +23,7 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    SET_TL (state, payload) {
+    SET_TRAFFIC_LIGHTS (state, payload) {
       state.trafficLights.data = payload.map(tl => {
         tl.info = {
           color: configs.cardConfig.color[tl.state],
@@ -51,7 +51,7 @@ export default new Vuex.Store({
     async getObjects ({ commit }) {
       try {
         const { data } = await api.objects.fetchObjects()
-        commit('SET_TL', data)
+        commit('SET_TRAFFIC_LIGHTS', data)
       } catch (error) {
         console.log(error)
       }

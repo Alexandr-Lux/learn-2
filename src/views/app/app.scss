@@ -2,35 +2,17 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  &__map-wrapper {
-    position: relative;
-    flex: 1;
-  }
-  &__mapcenter {
-    border-radius: var(--border-radius);
-    background-color: var(--modal_bg);
-    color: var(--text_subhead);
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 15;
-    width: 30px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
-    &:hover {
-      background-color: var(--accent_hover);
-    }
-  }
+  position: relative;
   &__map {
-    height: 100%;
+    flex: 1;
   }
   &__objects-list {
     position: absolute;
-    top: 8px;
+    top: 56px;
     left: 8px;
   }
   &__widget-wrapper {
+    display: flex;
     position: absolute;
     bottom: 24px;
     left: 8px;
@@ -44,80 +26,5 @@
     bottom: 22px;
     left: 8px;
     right: 8px;
-  }
-}
-.navbar {
-  background-color: var(--bg_panel_primary);
-  width: 100%;
-  height: 48px;
-  display: grid;
-  grid-template-columns: 24px 213px 1fr 50px repeat(3, 68px) 70px;
-  justify-items: center;
-  align-items: center;
-  // align-content: center;
-  padding: 0 16px;
-  &__popover {
-    height: 100%;
-    justify-self: left;
-    display: block;
-  }
-  &__link {
-    color: var(--icons_high_contrast);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    &.notif {
-      padding: 0 16px;
-      height: 75%;
-      border-right: 1px solid var(--dividers_low_contrast);
-      border-left: 1px solid var(--dividers_low_contrast);
-    }
-  }
-}
-
-.profile {
-  &__avatar {
-    color: var(--icons_high_contrast);
-  }
-  &__btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-    padding: 0 16px;
-    &:hover {
-      background-color: var(--button_secondary_bg_hover);
-    }
-  }
-  &__title {
-    color: var(--text_secondary);
-    margin-bottom: 4px;
-  }
-  &__content {
-    text-align: left;
-    padding: 3px 16px;
-  }
-  &__btn .el-icon-caret-bottom {
-    color: var(--icons_high_contrast);
-  }
-  &__name {
-    color: var(--text_primary) !important;
-  }
-}
-
-.objects {
-  &__dropdown {
-    background-color: var(--accent_selected);
-    color: var(--accent_primary);
-    border-radius: var(--border-radius);
-    width: 208px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 9px;
-    font-weight: 600;
-    & .el-icon-caret-bottom {
-      color: var(--accent_primary);
-    }
   }
 }

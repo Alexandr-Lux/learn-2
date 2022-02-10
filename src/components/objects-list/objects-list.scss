@@ -58,7 +58,8 @@
   margin-right: 5px;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &.active {
     background-color: var(--accent_hover);
   }
   &__id {

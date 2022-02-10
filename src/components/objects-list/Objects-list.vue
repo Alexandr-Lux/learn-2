@@ -14,14 +14,14 @@
       </div>
       <ul class="objects-list__list" v-if="trafficLights">
         <li
-          class="objects-list__item obj"
+          :class="['objects-list__item', 'obj', {active: obj.id === activeCardId}]"
           v-for="obj in filterObjects"
           :key="obj.id"
           @click="SET_ACTIVECARD_ID(obj.id)">
           <Icon name="trafficLight" class="obj__icon" :style="{ color: obj.info.color }" />
           <div class="obj__title">CO {{obj.id - 4096}}</div>
           <div class="obj__id">id:{{obj.id}}</div>
-          <div class="obj__mode">{{ obj.mode === 1 ? 'K' : '-'}}</div>
+          <div class="obj__mode">{{obj.mode === 1 ? 'K' : '-'}}</div>
         </li>
       </ul>
     </div>
@@ -37,7 +37,8 @@ export default {
   computed: {
     ...mapState({
       trafficLights: state => state.trafficLights.data,
-      searchText: state => state.filterText
+      searchText: state => state.filterText,
+      activeCardId: state => state.activeCardId
     }),
     ...mapGetters(['filterObjects']),
     filterText: {
@@ -53,7 +54,7 @@ export default {
     ...mapMutations(['SET_ACTIVECARD_ID', 'FILTER_OBJECTS'])
   },
   mounted () {
-    console.log(this.loading)
+    // console.log(this.loading)
   }
 }
 </script>

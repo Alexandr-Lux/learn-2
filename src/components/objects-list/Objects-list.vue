@@ -1,7 +1,7 @@
 <template>
   <div class="objects-list__wrapper">
     <div class="objects-list__loading" v-if="loading">
-      <Icon name="spinner" class="objects-list__spinner"/>
+      <Icon name="spinner" class="loading"/>
     </div>
     <div class="objects-list">
       <div class="objects-list__search">
@@ -52,9 +52,6 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_ACTIVECARD_ID', 'FILTER_OBJECTS'])
-  },
-  mounted () {
-    // console.log(this.loading)
   }
 }
 </script>

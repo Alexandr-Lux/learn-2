@@ -1,19 +1,6 @@
 .card {
   position: relative;
-  &__wrapper {
-    background-color: var(--modal_bg);
-    border-radius: var(--border-radius) 0 var(--border-radius) var(--border-radius);
-    height: 358px;
-    display: flex;
-  }
-  &__infobar {
-    background-color: var(--bg_containers);
-    margin: 8px 16px 8px 8px;
-    width: 260px;
-    height: 342px;
-    padding: 8px;
-    flex-shrink: 0;
-  }
+
   &__close {
     color: var(--icons_high_contrast);
     background-color: var(--modal_bg);
@@ -27,211 +14,56 @@
     align-items: center;
     justify-content: center;
   }
-  &__body {
-    flex: 1;
+
+  &__wrapper {
+    background-color: var(--modal_bg);
+    border-radius: var(--border-radius) 0 var(--border-radius) var(--border-radius);
+    height: 358px;
+    display: grid;
+    grid-gap: 8px 8px;
+    text-align: center;
+    grid-template-areas:
+      "infobar header"
+      "infobar content";
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: 38px 1fr;
+    padding-right: 8px;
   }
-  &__tabs.el-tabs--border-card {
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    & .el-tabs__header {
-      color: var(--text_subhead);
-      background-color: transparent;
-      border: none;
-      outline: none;
-      & .el-tabs__nav {
-        width: 50%;
-      }
-      & .el-tabs__item {
-        border: none;
-        font-weight: 400;
-        font-size: 16px;
-        width: 100%;
-        text-align: center;
-        &.is-active {
-          background-color: var(--accent_selected);
-          border-bottom: 2px solid var(--accent_primary);
-          color: var(--text_primary);
-        }
-        &:hover {
-          color: var(--text_primary) !important;
-        }
-      }
-    }
-    & .el-tabs__content {
-      padding: 0;
-      padding-top: 16px;
-    }
+
+  &__infobar {
+    background-color: var(--bg_containers);
+    width: 260px;
+    height: 100%;
+    padding: 8px;
+    grid-area: infobar;
+    text-align: left;
   }
-}
-.infobar {
-  border-radius: var(--border-radius);
+
   &__header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-  &__title {
-    margin-left: 8px;
-    flex: 1;
-  }
-  &__target-icon {
-    background-color: var(--field_hover_bg);
-    border-radius: var(--border-radius);
-    width: 36px;
     height: 36px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    grid-area: header;
   }
-  &__content {
-    height: 86%;
-    overflow: auto;
-  }
-  &__prop {
-    color: var(--text_secondary);
-  }
-  &__value {
-    border-bottom: 1px solid var(--field_border);
-    padding: 4px 0;
-    margin-bottom: 8px;
-  }
-}
-.journal {
-  display: grid;
-  grid-template-columns: 244px 1fr;
-  grid-template-rows: 36px 1fr;
-  grid-template-areas: 
-    "settings controls"
-    "settings content";
-  &__settings {
-    grid-area: settings;
-    padding-right: 16px;
-  }
-  &__controls {
-    color: var(--text_subhead);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    grid-area: controls;
-    margin-bottom: 16px;
-    & .is-active .el-radio-button__inner {
-      background-color: var(--accent_active) !important;
-      box-shadow: none !important;
-      border: none !important;
-    }
-    & .el-radio-button__inner {
-      color: var(--text_primary);
-      background-color: var(--bg_containers);
-      font-weight: 400;
-      border: none !important;
-      box-shadow: none;
-      padding: 8px 0;
-      width: 122px;
-      &:hover,
-      &:focus {
-        color: var(--text_primary);
-        background-color: var(--accent_hover);
-      }
-    }
-  }
-  &__content {
-    grid-area: content;
-    & table {
-      width: 100%;
-    }
 
-    & th{
-      color: var(--text_secondary);
-      font-weight: 400;
-      text-align: left;
-      padding-bottom: 8px;
-    }
-    & td {
-      padding: 0 10px 16px 0;
-      vertical-align: top;
-    }
-  }
-  &__subtitle {
-    color: var(--text_subhead);
-    margin-bottom: 8px;
-  }
-  &__timegap {
-    &.el-radio-group {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-  }
-  &__time-item {
-    &.is-active .el-radio-button__inner {
-      background-color: var(--accent_active) !important;
-      box-shadow: none !important;
-      border: none !important;
-    }
-    & .el-radio-button__inner {
-      color: var(--text_primary);
-      border-radius: var(--border-radius) !important;
-      background-color: transparent;
-      border: none !important;
-      font-weight: 400;
-      padding: 7px 12px;
-      display: block !important;
-      margin-bottom: 8px;
-      &:hover,
-      &:focus {
-        color: var(--text_primary);
-        background-color: var(--accent_active);
-      }
-    }
-  }
-  &__prop {
-    color: var(--text_subhead);
-    margin-bottom: 8px;
-  }
-  &__datepicker {
-    margin-bottom: 16px;
-  }
-}
-.docs {
-  &__upload .el-upload-list {
-    width: 1000px;
-    display: grid;
-    grid-gap: 8px;
-    grid-auto-flow: column;
+  &__tab {
+    flex: 1;
+    line-height: 36px;
+    text-align: center;
+    border-bottom: 2px solid transparent;
+    transition: all .2s linear;
     
-    overflow-x: scroll;
-    grid-template-rows: 78px 78px;
-    &__item {
-      margin-top: 0 !important;
+    &:hover {
+      background-color: var(--accent_hover);
+    }
+    &.active {
+      border-bottom-color: var(--field_active_border);
+      background-color: var(--accent_active);
     }
   }
-  & .el-upload-dragger {
-    border: 1px dashed var(--dividers_high_contrast);
-    border-radius: var(--border-radius);
-    background-color: transparent;
-    height: auto;
-    width: 100%;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  & .el-upload {
-    color: var(--text_subhead) !important;
-    display: block;
-    margin-bottom: 16px;
-  }
-  & .el-icon-upload2 {
-    margin-right: 5px;
-  }
-  & .el-upload__text{
-    color: var(--text_subhead) !important;
-  }
+
   &__content {
-    background: var(--button_secondary_bg);
-    border-radius: var(--border-radius);
-    width: 280px;
-    height: 72px;
+    width: 100%;  
+    grid-area: content;
+    height: 300px;
   }
 }

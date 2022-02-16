@@ -50,8 +50,6 @@ export default {
   methods: {
     getdataByType () {
     }
-  },
-  mounted () {
   }
 }
 </script>

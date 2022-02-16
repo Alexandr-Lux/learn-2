@@ -28,3 +28,8 @@ export const color = {
   3: '#79DB62',
   254: '#E35D5D'
 }
+
+export const tabs = {
+  journal: 'Журнал',
+  docs: 'Документы и комментарии'
+}

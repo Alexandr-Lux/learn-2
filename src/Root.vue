@@ -1,5 +1,5 @@
 <template>
-  <div id="root" class="root dark-theme">
+  <div id="root" class="root">
     <router-view/>
   </div>
 </template>
@@ -23,5 +23,6 @@
 ::-webkit-scrollbar-thumb {
   background-color: #5398e0;
   border-radius: 4px;
+  height: 40px;
 }
 </style>

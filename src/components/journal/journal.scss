@@ -1,0 +1,128 @@
+.journal {
+  display: grid;
+  grid-template-columns: 244px 1fr;
+  grid-template-rows: 36px 1fr;
+  grid-template-areas: 
+    "settings controls"
+    "settings table";
+  grid-auto-flow: column;
+  &__settings {
+    grid-area: settings;
+    padding-right: 16px;
+    text-align: left;
+  }
+  &__controls {
+    color: var(--text_subhead);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-area: controls;
+    padding: 0 8px;
+    & .is-active .el-radio-button__inner {
+      background-color: var(--accent_active) !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+    & .el-radio-button__inner {
+      color: var(--text_primary);
+      background-color: var(--bg_containers);
+      font-weight: 400;
+      border: none !important;
+      box-shadow: none;
+      padding: 8px 0;
+      width: 122px;
+      &:hover,
+      &:focus {
+        color: var(--text_primary);
+        background-color: var(--accent_hover);
+      }
+    }
+  }
+  &__subtitle {
+    color: var(--text_subhead);
+    margin-bottom: 8px;
+  }
+  &__times {
+    &.el-radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  }
+  &__time-interval {
+    &.is-active .el-radio-button__inner {
+      background-color: var(--accent_active) !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+    & .el-radio-button__inner {
+      color: var(--text_primary);
+      border-radius: var(--border-radius) !important;
+      background-color: transparent;
+      border: none !important;
+      font-weight: 400;
+      padding: 7px 12px;
+      display: block !important;
+      margin-bottom: 8px;
+      &:hover,
+      &:focus {
+        color: var(--text_primary);
+        background-color: var(--accent_active);
+      }
+    }
+  }
+  &__prop {
+    color: var(--text_subhead);
+    margin-bottom: 8px;
+  }
+  &__datepicker {
+    margin-bottom: 16px;
+    & input {
+      background-color: var(--field_bg);
+      border-color: var(--field_border);
+      color: var(--text_primary);
+      &:hover,
+      &:focus {
+        border-color: var(--field_active_border);
+      }
+    }
+  }
+  &__loading {
+    justify-self: center;
+    align-self: center;
+  }
+}
+
+.el-picker-panel {
+  &.el-date-picker {
+    font-family: var(--font-family);
+    border: 1px solid var(--dividers_low_contrast);
+    background: var(--modal_bg);
+    color: var(--text_primary);
+    box-shadow: none;
+    & .el-date-picker__header-label {
+      color: var(--accent_primary);
+    }
+  }
+  & .el-date-table {
+    & td.prev-month,
+    & td.next-month {
+      color: var(--text_secondary);
+    }
+    & th {
+      color: var(--text_secondary);
+      border-color: var(--dividers_low_contrast);
+    }
+    & td.disabled,
+    & td.disabled div {
+      background-color: var(--bg_panel_primary);
+      color: var(--text_secondary);
+    }
+  }
+  &__icon-btn {
+    color: var(--accent_primary) !important;
+  }
+  & .popper__arrow {
+    border-bottom-color: var(--modal_bg);
+  }
+}

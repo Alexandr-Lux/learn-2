@@ -156,3 +156,14 @@
   font-size: 12px;
   line-height: 16px;
 }
+
+.loading {
+  color: var(--accent_primary);
+  height: 50px;
+  width: 50px;
+  @keyframes rotate {
+    from { transform: rotate(0deg); }    
+    to { transform: rotate(1turn); }
+  }
+  animation: rotate 1.3s linear infinite;
+}

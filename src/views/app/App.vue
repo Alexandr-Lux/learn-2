@@ -45,6 +45,9 @@ export default {
       widgetInfo: state => state.summary,
       activeCardId: state => state.activeCardId
     })
+  },
+  mounted () {
+    document.body.classList.add('dark-theme')
   }
 }
 </script>

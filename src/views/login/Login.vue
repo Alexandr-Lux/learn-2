@@ -51,7 +51,8 @@ export default {
         password: ''
       },
       activeSide: '',
-      btnIsActive: true
+      btnIsActive: true,
+      loading: false
     }
   },
   methods: {
@@ -73,6 +74,7 @@ export default {
     },
     async login (e) {
       e.preventDefault()
+      this.loading = true
       this.$refs.prism.style.transform = 'scale(.3) rotateX(-30deg)'
 
       if (this.form.name && this.form.password) {
@@ -81,6 +83,7 @@ export default {
             username: this.form.name,
             password: this.form.password
           })
+          this.loading = true
           if (!response.data.token) throw new Error('Токен не получен, доступ ограничен')
           if (response.status > 400) throw new Error('Произошла ошибка при создании запроса')
           localStorage.setItem('token', response.data.token)

@@ -5,15 +5,7 @@
     </button>
     <div class="card__wrapper">
       <Infobar class="card__infobar" :content="cardContent"/>
-      <div class="card__header">
-        <button
-          :class="['card__tab', 'title-3', {active: activeTab === name}]"
-          @click="toggleActiveTab(name)"
-          v-for="(val, name, i) in tabs"
-          :key="i">
-            {{val}}
-        </button>
-      </div>
+      <Tabs :tabs="tabs" class="card__tabs" @toggleTab="toggleActiveTab" :activeTab="activeTab"/>
       <Journal v-if="activeTab === 'journal'" class="card__content" />
       <DocsComments v-if="activeTab === 'docs'" class="card__content" />
     </div>
@@ -24,13 +16,14 @@
 import * as api from '@/api'
 import * as configs from '@/configs'
 import Journal from './journal/Journal.vue'
+import Tabs from './tabs/Tabs.vue'
 import DocsComments from './docs-comments/Docs-Comments.vue'
 import Infobar from './infobar/Infobar.vue'
 import { mapMutations, mapState } from 'vuex'
 
 export default {
   components: {
-    Journal, DocsComments, Infobar
+    Journal, DocsComments, Infobar, Tabs
   },
   data () {
     return {

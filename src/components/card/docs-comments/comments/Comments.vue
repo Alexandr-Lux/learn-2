@@ -64,7 +64,8 @@ export default {
             message: 'Комментарий успешно удален'
           })
           await api.docsAndComments.deleteComment(com.resource_id)
-          this.commentsList.splice(this.commentsList.findIndex(cl => cl.resource_id === com.resource_id), 1)
+          // this.commentsList.splice(this.commentsList.findIndex(cl => cl.resource_id === com.resource_id), 1)
+          this.getComments(this.cardId)
         }).catch(() => {
           this.$message({
             type: 'info',

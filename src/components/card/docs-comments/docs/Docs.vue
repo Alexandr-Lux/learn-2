@@ -67,7 +67,7 @@ export default {
             message: 'Файл успешно удален'
           })
           await api.docsAndComments.deleteDocs(id)
-          this.docsList.splice(this.docsList.findIndex(doc => doc.resource_id === id), 1)
+          await this.getDocs(this.cardId)
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -90,9 +90,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    },
-    handlerFileUpload () {
-      console.log(123123)
     }
   },
   watch: {

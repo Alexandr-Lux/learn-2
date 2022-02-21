@@ -19,33 +19,16 @@
     background-color: var(--modal_bg);
     border-radius: var(--border-radius) 0 var(--border-radius) var(--border-radius);
     height: 358px;
-    display: grid;
-    grid-gap: 8px 8px;
+    display: flex;
     text-align: center;
-    grid-template-areas:
-      "infobar tabs"
-      "infobar content";
-    grid-template-columns: 260px 1fr;
-    grid-template-rows: 38px 1fr;
-    padding-right: 8px;
   }
 
   &__infobar {
     background-color: var(--bg_containers);
-    width: 260px;
     height: 100%;
     padding: 8px;
     grid-area: infobar;
     text-align: left;
-  }
-
-  &__tabs {
-    grid-area: tabs;
-  }
-
-  &__content {
-    width: 100%;  
-    grid-area: content;
-    height: 300px;
+    flex: 0 0 260px;
   }
 }

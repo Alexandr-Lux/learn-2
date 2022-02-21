@@ -23,9 +23,9 @@
 <script>
 import * as api from '@/api'
 import * as configs from '@/configs'
-import Journal from '@/components/journal/Journal.vue'
-import DocsComments from '@/components/docs-comments/DocsComments.vue'
-import Infobar from '@/components/infobar/Infobar.vue'
+import Journal from './journal/Journal.vue'
+import DocsComments from './docs-comments/Docs-Comments.vue'
+import Infobar from './infobar/Infobar.vue'
 import { mapMutations, mapState } from 'vuex'
 
 export default {

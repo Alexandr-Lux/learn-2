@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import Dropdown from '@/components/dropdown/Dropdown.vue'
+import Dropdown from './dropdown/Dropdown.vue'
 import navBarIcons from '@/configs/navbarIcons'
 
 export default {

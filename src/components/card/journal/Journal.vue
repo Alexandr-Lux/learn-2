@@ -53,9 +53,9 @@
 </template>
 
 <script>
-import Table from '@/components/table/Table.vue'
+import Table from './table/Table.vue'
 import * as api from '@/api'
-import { transformDate } from '@/helpers/dates'
+import { transformDate } from '@/helpers/dates.js'
 import { mapState } from 'vuex'
 export default {
   components: {

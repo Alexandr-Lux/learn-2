@@ -1,0 +1,38 @@
+.infobar {
+  border-radius: var(--border-radius);
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  &__title {
+    margin-left: 8px;
+    flex: 1;
+  }
+  &__target {
+    background-color: var(--field_hover_bg);
+    border-radius: var(--border-radius);
+    color: var(--icons_high_contrast);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    &:hover {
+      background-color: var(--accent_hover);
+    }
+  }
+  &__content {
+    height: 86%;
+    overflow: auto;
+  }
+  &__prop {
+    color: var(--text_secondary);
+  }
+  &__value {
+    border-bottom: 1px solid var(--field_border);
+    padding: 4px 0;
+    margin-bottom: 8px;
+  }
+}

@@ -7,7 +7,7 @@
         <i class="el-icon-aim"></i>
       </button>
     </div>
-    <div class="infobar__content">
+    <div class="infobar__content" style="dispaly:none">
       <div class="infobar__field" v-for="(value, name, i) in properties" :key="i">
         <div class="infobar__prop caption">{{value}}</div>
         <div class="infobar__value" :style="{ color: name === 'state' ? content.info.color : 'inherit'}">

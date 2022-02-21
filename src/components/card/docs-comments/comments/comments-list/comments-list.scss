@@ -1,0 +1,36 @@
+.comments {
+  margin-right: 4px;
+  padding: 0 4px 0 0;
+  height: 240px;
+  overflow-y: auto;
+
+  &__item {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    justify-items: start;
+    margin: 8px 0;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    background-color: var(--bg_containers);
+  }
+  &__author {
+    color: var(--text_subhead);
+  }
+  &__created {
+    color: var(--text_secondary);
+  }
+  &__text {
+    align-self: end;
+  }
+  &__remove {
+    justify-self: end;  
+    width: 25px;
+    height: 25px;
+    border-radius: var(--border-radius);
+    line-height: 25px;
+    &:hover {
+      background-color: var(--button_secondary_bg_hover);
+    }
+  }
+}

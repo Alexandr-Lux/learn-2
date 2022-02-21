@@ -1,0 +1,17 @@
+.table {
+  height: 100%;
+  width: 100%;
+  display: block;
+  overflow-y: scroll;
+  position: relative;
+  text-align: left;
+  & th {
+    color: var(--text_secondary);
+    font-weight: 400;
+    text-align: left;
+    padding: 8px;
+  }
+  & td {
+    padding: 8px;
+  }
+}

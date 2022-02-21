@@ -7,12 +7,19 @@ export const props = {
   DKType: 'Тип ДК'
 }
 
+export const hintFields = {
+  cross: 'Перекресток',
+  mode: 'Режим управления',
+  state: 'Состояние'
+}
+
 export const mode = {
   1: 'План координации / суточный график',
   255: 'н/д'
 }
 
 export const state = {
+  2: 'Жёлтое мигание',
   3: 'Фаза',
   254: 'Потеря связи'
 }

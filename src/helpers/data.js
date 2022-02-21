@@ -1,4 +1,4 @@
-export default function (json) {
+export const jsonToGeojson = (json) => {
   return {
     type: 'FeatureCollection',
     features: json.map(obj => {

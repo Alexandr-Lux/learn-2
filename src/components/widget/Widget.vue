@@ -46,10 +46,6 @@ export default {
     ...mapState({
       widget: state => state.summary
     })
-  },
-  methods: {
-    getdataByType () {
-    }
   }
 }
 </script>

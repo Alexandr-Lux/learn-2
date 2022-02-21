@@ -6,8 +6,8 @@ const icons = [
   }
 ]
 
-export default function (component) {
-  return Promise.all(
+export const createImageFromSvg = async (component) => {
+  await Promise.all(
     icons.map(({ name, imageUrl }) => {
       return new Promise(resolve => {
         const image = new Image(iconSize, iconSize)
@@ -21,5 +21,6 @@ export default function (component) {
         image.src = imageUrl
       })
     })
-  ).then(() => console.log('Удачно'))
+  )
+  return console.log('Удачно')
 }

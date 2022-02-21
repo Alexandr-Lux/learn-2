@@ -1,0 +1,23 @@
+.docs {
+  &__doc-icon {
+    font-size: 18px;
+  }
+  &__item {
+    display: grid;
+    grid-template-columns: 25px 1fr 25px 25px;
+    align-items: center;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    background-color: var(--bg_containers);
+    margin: 8px 0;
+  }
+  &__btn {
+    width: 25px;
+    height: 25px;
+    border-radius: var(--border-radius);
+    line-height: 25px;
+    &:hover {
+      background-color: var(--button_secondary_bg_hover);
+    }
+  }
+}

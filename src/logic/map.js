@@ -1,58 +1,66 @@
 import mapboxgl from 'mapbox-gl'
-import createImageFromSvg from '@/helpers/createImageFromSvg'
-import jsonToGeojson from '@/helpers/jsonToGeojson'
-import layerHandlers from '@/helpers/layerHandlers'
+import { createImageFromSvg } from '@/helpers/icons'
+import { jsonToGeojson } from '@/helpers/data'
+import { layerHandlers } from '@/helpers/handlers'
 
-export const createMap = (component) => {
-  mapboxgl.accessToken = component.accessToken
-  component.mapgl = new mapboxgl.Map(component.mapConfig)
-}
-
-export const addSourceToMap = async (component, sourceConfig, layerConfig) => {
-  await component.getObjects()
-
-  component.SET_GEOJSON({
-    data: jsonToGeojson(component[sourceConfig.id]),
-    id: sourceConfig.id
-  })
-
-  if (!component.sourcesOnMap.some(src => src.id === sourceConfig.id)) {
-    component.sourcesOnMap.push({
-      id: sourceConfig.id,
-      activeLayerIds: [layerConfig.id]
-    })
-    component.mapgl.addSource(sourceConfig.id, {
-      type: 'geojson',
-      data: component[`geo${sourceConfig.id}`]
-    })
-  } else {
-    component
-      .sourcesOnMap
-      .find(src => src.id === sourceConfig.id)
-      .activeLayerIds
-      .push(layerConfig.id)
-  }
-}
-
-export const addLayerToMap = async (component, sourceConfig, layerConfig) => {
-  await addSourceToMap(component, sourceConfig, layerConfig)
-
-  if (!component.layersOnMap.some(lyr => lyr.id === layerConfig.id)) {
-    component.layersOnMap.push({ isActive: true, ...layerConfig })
+export default class Map {
+  constructor (component, sourceConfig, layerConfig) {
+    this.component = component
+    this.sourceConfig = sourceConfig
+    this.layerConfig = layerConfig
   }
 
-  component.mapgl.addLayer(layerConfig)
+  async initMap () {
+    this.component.$emit('toggleLoading')
+    this.createMap(this.component)
+    this.component.mapgl.on('load', async () => {
+      await createImageFromSvg(this.component)
+      await this.addLayerToMap(this.component, this.sourceConfig, this.layerConfig)
+      this.component.$emit('toggleLoading')
+    })
+  }
 
-  layerHandlers(component, 'click', layerConfig)
-  layerHandlers(component, 'changeCursorOnHover', layerConfig)
-}
+  createMap () {
+    mapboxgl.accessToken = this.component.accessToken
+    this.component.mapgl = new mapboxgl.Map(this.component.mapConfig)
+  }
 
-export const initMap = async (component, sourceConfig, layerConfig) => {
-  component.$emit('toggleLoading')
-  createMap(component)
-  component.mapgl.on('load', async () => {
-    await createImageFromSvg(component)
-    await addLayerToMap(component, sourceConfig, layerConfig)
-    component.$emit('toggleLoading')
-  })
+  async addSourceToMap () {
+    await this.component.getObjects()
+
+    this.component.SET_GEOJSON({
+      data: jsonToGeojson(this.component[this.sourceConfig.id]),
+      id: this.sourceConfig.id
+    })
+
+    if (!this.component.sourcesOnMap.some(src => src.id === this.sourceConfig.id)) {
+      this.component.sourcesOnMap.push({
+        id: this.sourceConfig.id,
+        activeLayerIds: [this.layerConfig.id]
+      })
+      this.component.mapgl.addSource(this.sourceConfig.id, {
+        type: 'geojson',
+        data: this.component[`geo${this.sourceConfig.id}`]
+      })
+    } else {
+      this.component
+        .sourcesOnMap
+        .find(src => src.id === this.sourceConfig.id)
+        .activeLayerIds
+        .push(this.layerConfig.id)
+    }
+  }
+
+  async addLayerToMap () {
+    await this.addSourceToMap(this.component, this.sourceConfig, this.layerConfig)
+
+    if (!this.component.layersOnMap.some(lyr => lyr.id === this.layerConfig.id)) {
+      this.component.layersOnMap.push({ isActive: true, ...this.layerConfig })
+    }
+
+    this.component.mapgl.addLayer(this.layerConfig)
+
+    layerHandlers(this.component, 'click', this.layerConfig)
+    layerHandlers(this.component, 'mouseHandlers', this.layerConfig)
+  }
 }

@@ -1,3 +1,9 @@
-export const initWidgets = async (component) => {
-  await component.getSummary()
+export default class Widget {
+  constructor (component) {
+    this.component = component
+  }
+
+  async initWidgets () {
+    await this.component.getSummary()
+  }
 }

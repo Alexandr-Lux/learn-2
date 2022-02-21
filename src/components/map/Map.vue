@@ -4,20 +4,26 @@
       <i class="el-icon-full-screen"></i>
     </button>
     <div id="mapContainer" class="map__container"></div>
+    <Hint class="map__hint" :config="hint" v-if="hint" />
   </div>
 </template>
 
 <script>
-import * as mapLogic from '@/logic/map'
-import * as widgetLogic from '@/logic/widget'
+import Map from '@/logic/map'
+import Widget from '@/logic/widget'
+import Hint from '@/components/hint/Hint.vue'
 import * as configs from '@/configs'
 
 import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
+  components: {
+    Hint
+  },
   data () {
     return {
       mapgl: null,
+      hint: null,
       mapConfig: configs.maps.baseMap,
       accessToken: configs.maps.accessToken,
       sourcesOnMap: [],
@@ -80,8 +86,11 @@ export default {
     }
   },
   async mounted () {
-    await mapLogic.initMap(this, configs.sources.tl, configs.layers.lights)
-    await widgetLogic.initWidgets(this)
+    const map = new Map(this, configs.sources.tl, configs.layers.lights)
+    const widget = new Widget(this)
+
+    await map.initMap()
+    await widget.initWidgets()
   }
 }
 </script>
